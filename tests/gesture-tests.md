@@ -1,0 +1,50 @@
+# Test cases
+
+Rows G, S, A, E and C are automated tests on **synthetic** landmarks. Rows M-xx are manual browser/webcam tests: **none have been run yet**. Fill in 'Actual result' and 'Status' as you run them.
+
+| Test ID | Description | Steps | Expected result | Actual result | Status |
+|---|---|---|---|---|---|
+| G-01 | Open palm classified as OPEN_PALM | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| G-02 | Closed fist classified as CLOSED_FIST | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| G-03 | Half-curled fingers classified as PARTIALLY_OPEN | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| G-04 | Two fingers extended, two curled is PARTIALLY_OPEN | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| G-05 | Invalid / missing landmarks return UNKNOWN without throwing | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| G-06 | Same result for hand scales 0.05 to 0.6 (distance independence) | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| G-07 | Hand smaller than minHandSize returns UNKNOWN | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| G-08 | Rotation 0/30/-30/90/180 degrees does not change the result | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| G-09 | Aspect-ratio correction (16:9 frame, rotated 90 degrees) | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| G-10 | Seeded landmark jitter (+-3% of hand size): >=95% correct over 300 samples each | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| G-11 | Invalid thresholds fall back to defaults; fist>=open rejected | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| G-12 | Sensitivity mapping: monotonic, clamped, keeps a gap, NaN-safe | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| S-01 | Smoother ignores a 50 ms flicker | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| S-02 | Smoother accepts a sustained change after holdMs (boundary exact) | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| S-03 | UNKNOWN needs the longer unknownHoldMs; invalid labels count as UNKNOWN | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| S-04 | Smoother invalid options use defaults; reset() clears state | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| A-01 | Associator keeps slots when MediaPipe output order is swapped | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| A-02 | Associator follows hands even when handedness labels flip | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| A-03 | A hand that disappears frees its slot after the timeout; new hand reuses it | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| A-04 | Second hand appearing next to a tracked hand gets the other slot | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| E-01 | State machine: IDLE -> DETECTED -> CHARGING -> ACTIVE | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| E-02 | Charge uses elapsed time: 30 fps and 120 fps reach the same charge | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| E-03 | Closed fist releases: FADING then DETECTED, charge reset | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| E-04 | Cooldown prevents re-charging immediately after a release | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| E-05 | PARTIALLY_OPEN and UNKNOWN hold the charge (no sudden change) | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| E-06 | Brief tracking loss (< lostGraceMs) keeps the effect; long loss fades and cleans up | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| E-07 | Two effect states are independent | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| C-01 | Config: invalid overrides ignored with warnings | Run the suite (`node` import of tests/gestureTestSuite.js, or open tests/gesture-tests.html via the local server) | Test passes | Passed (Node v22.22.2) | PASS (Node); browser page NOT RUN |
+| M-01 | Start camera | Open http://localhost:8000, press Start Camera, allow access | Loading messages, then 'Camera on', live video, FPS values appear | Not executed | NOT RUN |
+| M-02 | Stop camera | Press Stop Camera | Video stops, camera light off, status 'Camera off', orbs cleared; Start works again without reload | Not executed | NOT RUN |
+| M-03 | Open palm | Show open palm facing camera for 3 s | Gesture 'Open palm', orb appears above palm and charges to 100% | Not executed | NOT RUN |
+| M-04 | Closed fist | Close fist while orb is charged | Release burst, orb fades, charge returns to 0, no immediate retrigger | Not executed | NOT RUN |
+| M-05 | One hand | Use one hand only | One orb; other hand row shows '—' / IDLE | Not executed | NOT RUN |
+| M-06 | Two hands | Open both palms, then close only one | Two independent orbs; closing one does not affect the other; swapping hand order/crossing handled as documented | Not executed | NOT RUN |
+| M-07 | Move hands | Move/rotate hand across the whole frame, toward/away from camera | Orb follows above palm, rotates with hand, size scales sensibly, aligned in mirrored and unmirrored mode | Not executed | NOT RUN |
+| M-08 | Resize browser | Resize window, toggle fullscreen (F) | Canvas stays aligned with video; no stretching | Not executed | NOT RUN |
+| M-09 | Temporary tracking loss | Hide hand for 0.1 s, then 1 s | 0.1 s: orb persists; 1 s: orb fades and cleans up | Not executed | NOT RUN |
+| M-10 | Permission denial | Block camera in Chrome, press Start | Readable message; Start usable again; not stuck loading | Not executed | NOT RUN |
+| M-11 | Missing video asset | Tick 'Video orb' without assets/rasengan.mp4 | Warning message, checkbox unticks, procedural orb continues | Not executed | NOT RUN |
+| M-12 | Slow performance | Open many tabs / set modelComplexity 1 on a weak PC | FPS readout drops honestly; app stays responsive | Not executed | NOT RUN |
+| M-13 | Console errors | Open DevTools console during M-01..M-11 | No uncaught errors (a 404 for rasengan.mp4 in M-11 is expected) | Not executed | NOT RUN |
+| M-14 | CDN failure | Go offline, press Start | Message about MediaPipe loading; not stuck loading | Not executed | NOT RUN |
+| M-15 | Camera in use | Start the camera in another app, press Start | 'Camera in use' message | Not executed | NOT RUN |
+| M-16 | Stop during permission prompt | Press Start then Stop before answering the prompt, then Start again | Cancels cleanly; camera released; second Start works | Not executed | NOT RUN |

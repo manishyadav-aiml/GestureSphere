@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- GestureSphere branding -->
+  <title>GestureSphere — Bringing Hand Gestures to Life in Real Time</title>
+
+  <meta
+    name="description"
+    content="GestureSphere brings hand gestures to life in real time using webcam-based hand tracking and interactive visual effects."
+  >
+
+  <meta name="theme-color" content="#080b16">
+
+  <!-- Existing stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+
+<body>
+
+  <!-- Website header -->
+  <header class="top">
+    <h1>
+      GestureSphere
+      <span>— Bringing Hand Gestures to Life in Real Time.</span>
+    </h1>
+
+    <p>
+      GestureSphere uses MediaPipe to track 21 landmarks per hand,
+      recognises gestures using geometric rules, and renders interactive
+      energy effects on a Canvas. Everything runs locally in your browser.
+      Your webcam video is not uploaded to a server by this application.
+    </p>
+  </header>
+
+  <main class="layout">
+
+    <!-- Camera and visual effects -->
+    <section class="stage-col" aria-label="Camera view">
+
+      <div id="stageWrap">
+        <div id="stage" class="stage mirrored">
+
+          <video
+            id="cam"
+            playsinline
+            muted
+            aria-label="Webcam preview">
+          </video>
+
+          <canvas
+            id="overlay"
+            aria-hidden="true">
+          </canvas>
+
+          <div
+            id="overlayMsg"
+            class="overlay-msg info"
+            role="alert">
+
+            <span
+              id="spinner"
+              class="spinner"
+              hidden>
+            </span>
+
+            <span id="overlayText"></span>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Controls and status -->
+    <aside class="side">
+
+      <!-- Camera controls -->
+      <section class="panel" aria-labelledby="hCtl">
+
+        <h2 id="hCtl">Controls</h2>
+
+        <div class="btn-row">
+
+          <button
+            id="btnStart"
+            class="primary"
+            type="button">
+            Start Camera
+          </button>
+
+          <button
+            id="btnStop"
+            type="button"
+            disabled>
+            Stop Camera
+          </button>
+
+          <button
+            id="btnReset"
+            type="button">
+            Reset
+          </button>
+
+          <button
+            id="btnFullscreen"
+            type="button">
+            Fullscreen
+          </button>
+
+        </div>
+
+        <label class="opt">
+          <input
+            id="optSkeleton"
+            type="checkbox"
+            checked>
+          Show hand skeleton <kbd>K</kbd>
+        </label>
+
+        <label class="opt">
+          <input
+            id="optGlow"
+            type="checkbox"
+            checked>
+          Glow &amp; particles
+        </label>
+
+        <label class="opt">
+          <input
+            id="optMirror"
+            type="checkbox"
+            checked>
+          Mirror view
+        </label>
+
+        <label
+          class="opt"
+          title="Optional. Requires your own file at assets/rasengan.mp4">
+
+          <input
+            id="optVideo"
+            type="checkbox">
+
+          Video orb (optional, requires assets/rasengan.mp4)
+
+        </label>
+
+        <label class="opt col">
+
+          Gesture sensitivity
+
+          <output id="sensitivityValue">50%</output>
+
+          <input
+            id="optSensitivity"
+            type="range"
+            min="0"
+            max="100"
+            value="50"
+            aria-label="Gesture sensitivity">
+
+        </label>
+
+        <p class="hint">
+          Shortcuts:
+          <kbd>S</kbd> start/stop ·
+          <kbd>R</kbd> reset ·
+          <kbd>F</kbd> fullscreen ·
+          <kbd>K</kbd> skeleton
+        </p>
+
+      </section>
+
+      <!-- Tracking status -->
+      <section class="panel" aria-labelledby="hSt">
+
+        <h2 id="hSt">Status</h2>
+
+        <p class="row">
+
+          <span
+            class="dot idle"
+            id="statusDot">
+          </span>
+
+          <span
+            id="statusCamera"
+            role="status"
+            aria-live="polite">
+            Camera off
+          </span>
+
+        </p>
+
+        <dl class="stats">
+
+          <div>
+            <dt>Hands</dt>
+            <dd id="statusHands">0</dd>
+          </div>
+
+          <div>
+            <dt>Render FPS</dt>
+            <dd id="statusFps">—</dd>
+          </div>
+
+          <div>
+            <dt>Tracking FPS</dt>
+            <dd id="statusTrackFps">—</dd>
+          </div>
+
+        </dl>
+
+        <!-- First hand -->
+        <div class="hand h0">
+
+          <b>Hand 1</b>
+
+          <span id="hand0Gesture">—</span>
+
+          <small id="hand0State">IDLE</small>
+
+          <div class="meter">
+
+            <progress
+              id="hand0Meter"
+              max="100"
+              value="0"
+              aria-label="Hand 1 charge">
+            </progress>
+
+            <span id="hand0MeterText">0%</span>
+
+          </div>
+
+        </div>
+
+        <!-- Second hand -->
+        <div class="hand h1">
+
+          <b>Hand 2</b>
+
+          <span id="hand1Gesture">—</span>
+
+          <small id="hand1State">IDLE</small>
+
+          <div class="meter">
+
+            <progress
+              id="hand1Meter"
+              max="100"
+              value="0"
+              aria-label="Hand 2 charge">
+            </progress>
+
+            <span id="hand1MeterText">0%</span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- Instructions -->
+      <section class="panel" aria-labelledby="hHow">
+
+        <h2 id="hHow">How to Use GestureSphere</h2>
+
+        <ol class="how">
+
+          <li>
+            Press <b>Start Camera</b> and allow webcam access.
+          </li>
+
+          <li>
+            Hold an <b>open palm</b> facing the camera.
+            The energy orb appears above your hand and charges.
+          </li>
+
+          <li>
+            <b>Close your fist</b> to release the energy.
+          </li>
+
+          <li>
+            Use both hands to control their respective visual effects.
+          </li>
+
+        </ol>
+
+        <p class="hint">
+          Tip: Good lighting and keeping your whole hand in view
+          can improve tracking.
+        </p>
+
+      </section>
+
+    </aside>
+
+  </main>
+
+  <noscript>
+    <p class="noscript">
+      GestureSphere requires JavaScript to be enabled in your browser.
+    </p>
+  </noscript>
+
+  <!-- Existing JavaScript entry point -->
+  <script type="module" src="js/main.js"></script>
+
+</body>
+
+</html>

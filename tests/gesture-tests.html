@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Rasengan AR — logic tests</title>
+<style>body{font:15px system-ui;background:#070a12;color:#e6efff;padding:20px;max-width:900px;margin:auto}
+table{border-collapse:collapse;width:100%}td,th{border:1px solid #1d2742;padding:6px 10px;text-align:left}
+.pass{color:#3ddc84}.fail{color:#ff6b6b;font-weight:700}small{color:#8fa3c7}</style></head>
+<body>
+<h1>Rasengan AR — gesture &amp; state logic tests</h1>
+<p><small>Synthetic landmarks only. These tests do not touch the webcam or MediaPipe, so they prove the rules, smoothing, hand matching and state machine — not real-world tracking.</small></p>
+<p id="summary">Running…</p><table><thead><tr><th>ID</th><th>Test</th><th>Result</th></tr></thead><tbody id="rows"></tbody></table>
+<script type="module">
+import { runSuite } from './gestureTestSuite.js';
+const results = runSuite(), rows = document.getElementById('rows');
+for (const r of results) { const tr = document.createElement('tr');
+  for (const t of [r.id, r.name, r.pass ? 'PASS' : `FAIL — ${r.detail}`]) { const td = document.createElement('td'); td.textContent = t; tr.appendChild(td); }
+  tr.lastChild.className = r.pass ? 'pass' : 'fail'; rows.appendChild(tr); }
+const n = results.filter((r) => r.pass).length;
+document.getElementById('summary').textContent = `${n} / ${results.length} passed`;
+document.getElementById('summary').className = n === results.length ? 'pass' : 'fail';
+</script></body></html>

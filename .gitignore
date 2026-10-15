@@ -1,0 +1,9 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+# Optional user-supplied files that must not be redistributed
+assets/rasengan.mp4
+# Archives
+*.zip

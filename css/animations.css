@@ -1,0 +1,10 @@
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+@keyframes rise { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+.spinner { width: 16px; height: 16px; border: 2px solid rgba(255, 255, 255, .25); border-top-color: var(--cyan); border-radius: 50%; animation: spin .8s linear infinite; flex: none; }
+.spinner[hidden] { display: none; }
+.dot.loading { animation: pulse 1s ease-in-out infinite; }
+.dot.ok { box-shadow: 0 0 8px #3ddc84; }
+.overlay-msg:not([hidden]) { animation: rise .25s ease-out; }
+button.primary:not(:disabled):hover { box-shadow: 0 0 14px rgba(80, 170, 255, .55); }
+button { transition: border-color .15s, box-shadow .15s; }
